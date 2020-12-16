@@ -19,6 +19,7 @@ export default class SettingScreen extends Component{
     getUserDetails=()=>{
         var user = firebase.auth().currentUser;
         var email = user.email;
+        console.log(email)
         db.collection('users').where('emailId','==',email).get()
         .then(snapshot=>{
             snapshot.forEach(doc=>{
@@ -33,6 +34,15 @@ export default class SettingScreen extends Component{
                 })
             })
         })
+    }
+    updateUserDetails=()=>{
+      db.collection('users').doc(this.state.docId).update({
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        phoneNumber: this.state.phoneNumber,
+        address: this.state.address,
+      })
+      Alert.alert("Your Profile Has Been Updated Successfully")
     }
     componentDidMount(){
         this.getUserDetails()
