@@ -3,10 +3,11 @@ import { StyleSheet, Text, View,TextInput,TouchableOpacity,Alert,Image} from 're
 import BookRequest from '../Screens/BookRequest.js'
 import BookDonate from '../Screens/BookDonate.js'
 import {createBottomTabNavigator} from 'react-navigation-tabs'
+import {AppStackNavigator} from './AppStackNavigator'
 
 export const AppNavigator = createBottomTabNavigator({
     DonateBooks: {
-        screen: BookDonate,
+        screen: AppStackNavigator,
         navigationOptions:{
             tabBarIcon: <Image source={require('../assets/request-list.png')} style={{width:20, height:20}}/>,
             tabBarLabel: "Donate Books"

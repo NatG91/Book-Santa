@@ -6,15 +6,15 @@ import ReceiverDetailsScreen from '../Screens/ReceiverDetailsScreen'
 export const AppStackNavigator = createStackNavigator({
     BookDonateList: {
         screen:BookDonate,
-        // navigationOptions:{
-        //     headerShown:false,
-        // }
+        navigationOptions:{
+            headerShown:false,
+        }
         },
     ReceiverDetails: {
         screen: ReceiverDetailsScreen,
-        // navigationOptions:{
-        //     headerShown:false,
-        // }
+        navigationOptions:{
+            headerShown:false,
+        }
     }
     },
     {intitialRouteName:'BookDonateList'}
