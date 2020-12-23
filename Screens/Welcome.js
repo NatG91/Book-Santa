@@ -31,7 +31,7 @@ export default class Welcome extends Component {
               <Text style={styles.modalTitle}>
                 Registration
               </Text>
-              <TextInput styles={styles.formTextInput} 
+              <TextInput style={styles.formTextInput} 
               placeholder={"First Name"}
               onChangeText={(text)=>{
                 this.setState({
@@ -39,7 +39,7 @@ export default class Welcome extends Component {
                 })
               }}
               />
-               <TextInput styles={styles.formTextInput} 
+               <TextInput style={styles.formTextInput} 
               placeholder={"Last Name"}
               onChangeText={(text)=>{
                 this.setState({
@@ -47,7 +47,7 @@ export default class Welcome extends Component {
                 })
               }}
               />
-              <TextInput styles={styles.formTextInput} 
+              <TextInput style={styles.formTextInput} 
               placeholder={"Phone Number"}
               keyboardType={'numeric'}
               maxLength={10}
@@ -57,8 +57,8 @@ export default class Welcome extends Component {
                 })
               }}
               />
-              <TextInput styles={styles.formTextInput} 
-              placeholder={"Adress"}
+              <TextInput style={styles.formTextInput} 
+              placeholder={"Address"}
               multiline={true}
               onChangeText={(text)=>{
                 this.setState({
@@ -66,7 +66,7 @@ export default class Welcome extends Component {
                 })
               }}
               />
-              <TextInput styles={styles.formTextInput} 
+              <TextInput style={styles.formTextInput} 
               placeholder={"Email Address"}
               keyboardType={'email-address'}
               onChangeText={(text)=>{
@@ -75,7 +75,7 @@ export default class Welcome extends Component {
                 })
               }}
               />
-              <TextInput styles={styles.formTextInput} 
+              <TextInput style={styles.formTextInput} 
               placeholder={"Password"}
               secureTextEntry={true}
               onChangeText={(text)=>{
@@ -89,16 +89,16 @@ export default class Welcome extends Component {
                   confirmPassword:text
                 }) }}
          /> 
-         <View styles={styles.backButton}>
+         <View style={styles.backButton}>
            <TouchableOpacity style={styles.registerButton} onPress={()=>this.signup(this.state.emailId,this.state.Password, this.state.confirmPassword)}>
-          <Text styles={styles.registerButton}>
+          <Text style={styles.registerButtonText}>
           Register
           </Text>
            </TouchableOpacity>
          </View>
-         <View styles={styles.backButton}>
-           <TouchableOpacity styles={styles.cancelButton} onPress={()=>this.setState({"isModalVisible":false})}>
-          <Text styles={styles.cancelButton}>
+         <View style={styles.backButton}>
+           <TouchableOpacity style={styles.cancelButton} onPress={()=>this.setState({"isModalVisible":false})}>
+          <Text style={styles.cancelButton}>
           Cancel
           </Text>
            </TouchableOpacity>
@@ -181,12 +181,36 @@ return Alert.alert("Thanks for Signing Up.")
       
    )}
   }
-     const styles = StyleSheet.create({
-  loginBox:{
-      fontSize: 20,
+  const styles = StyleSheet.create({
+
+    container:{
+      backgroundColor: 'purple',
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    loginBox:{
+        fontSize:20,
+        height: 20,
+        width: 300,
+        marginTop: 10,
+        marginLeft: 20,
+        alignItems: "center",
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: "center",
+        alignSelf: "center",
+        textAlign: "center",
+        borderBottomWidth: 1.5,
+        borderColor:"red"
+    },
+    LoginButton:{
+      fontSize: 90,
+      backgroundColor: "lightblue",
+      borderRadius: 10,
       height: 20,
-      width: 300,
-      marginTop: 10,
+      marginTop: 2,
+      width: 150,
       marginLeft: 20,
       alignItems: "center",
       justifyContent: "center",
@@ -194,60 +218,71 @@ return Alert.alert("Thanks for Signing Up.")
       alignSelf: "center",
       alignSelf: "center",
       textAlign: "center"
-  },
-  LoginButton:{
-    fontSize: 90,
-    backgroundColor: "lightblue",
-    borderRadius: 10,
-    height: 20,
-    marginTop: 2,
-    width: 150,
-    marginLeft: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center",
-    alignSelf: "center",
-    textAlign: "center"
-  },
-  container:{
-    backgroundColor: 'purple',
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title:{
-  color: 'lightblue',
-  fontSize: 50,
-marginLeft: 45,
-paddingBottom: 30
-  },
-  backButton:{
-    backgroundColor: '#FFDE59',
-  },
-  registerButton:{
-    backgroundColor: '#FFBD59',
-  },
-  cancelButton:{
-    backgroundColor: '#3009DD',
-  },
-  formTextInput:{
-    backgroundColor: '#FFDE59',
-  },
-  modalTitle:{
-    backgroundColor: '#FFBD59',
-  },
-  KeyboardAvoidingView:{
-   flex:1,
-   justifyContent: "center",
-   alignItems: "center"
-  },
-  modalContainer:{
-    backgroundColor: '#3009DD',
-    flex:1,
-    justifyContent: "center",
-    alignItems: "center"
-   },
-
-    })
+    },
+   
+    title:{
+      color: 'lightblue',
+      fontSize: 50,
+      marginLeft: 45,
+      paddingBottom: 30
+    },
+    backButton:{
+      backgroundColor: '#FFDE59',
+    },
+    registerButton:{
+      width:200,
+      height:40,
+      alignItems:'center',
+      justifyContent:'center',
+      borderWidth:1,
+      borderRadius:10,
+      marginTop:30
+    },
+    registerButtonText:{
+      color:'#ff5722',
+      fontSize:15,
+      fontWeight:'bold'
+    },
+    cancelButton:{
+      width:200,
+     height:30,
+     justifyContent:'center',
+     alignItems:'center',
+     marginTop:5,
+    },
+    formTextInput:{
+     width:"75%",
+     height:35,
+     alignSelf:'center',
+     borderColor:'#ffab91',
+     borderRadius:10,
+     borderWidth:1,
+     marginTop:20,
+     padding:10
+    },
+    modalTitle:{
+      justifyContent:'center',
+      alignSelf:'center',
+      fontSize:30,
+      color:'#ff5722',
+      margin:50
+    },
+    KeyboardAvoidingView:{
+     flex:1,
+     justifyContent: "center",
+     alignItems: "center"
+    },
+    modalContainer:{
+      flex:1,
+      borderRadius:20,
+      justifyContent:'center',
+      alignItems:'center',
+      backgroundColor:"#ffff",
+      marginRight:30,
+      marginLeft : 30,
+      marginTop:80,
+      marginBottom:80,
+     },
+  
+      })
   
