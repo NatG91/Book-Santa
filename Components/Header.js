@@ -1,19 +1,24 @@
 import React,{Component} from 'react';
 import { StyleSheet, Text, View} from 'react-native';
 import {Header, Icon, Badge} from 'react-native-elements';
+import db from '../config'
+import firebase from 'firebase/app'
 
 export default class MyHeader extends Component {
     constructor(props){
         super(props)
         this.state={
+            userId : firebase.auth().currentUser.email,
             value:""
         }
     }
 
+    
 
 
 getUnreadMessageNumbers(){
-db.collection('all_notification').where('notification_status',"==", "unread").onSnapshot((snapshot)=>{
+db.collection('all_notifications').where('notification_status',"==", "unread").where("targeted_user_id","==", this.state.userId)
+.onSnapshot((snapshot)=>{
     var unreadNotifications=snapshot.docs.map((doc)=>{
         doc.data()
     })
@@ -26,12 +31,12 @@ componentDidMount(){
     this.getUnreadMessageNumbers()
 }
 
-const Badgecon=(props)=>{
+Badgecon=()=>{
     return(
         <View>
-<Icon name='bell' type='feather' color="white" size={25}
+<Icon name='bell' type='feather' color="black" size={25}
             onPress={()=>{
-                props.navigation.navigate('Notifications')
+                this.props.navigation.navigate('Notifications')
             }}
             />
             <Badge
@@ -46,17 +51,17 @@ const Badgecon=(props)=>{
     )
 }
 
-
+render(){
         return(
             <Header 
             leftComponent={
-            <Icon name='bars' type='font-awesome' color="white" onPress={()=>{
-                props.navigation.toggleDrawer()
-            }}/>
+            <Icon name='bars' type='font-awesome' color="black" onPress={()=>
+                this.props.navigation.toggleDrawer()
+            }/>
         }
-            centerComponent={{text:props.title, style:{color:'lightblue',fontSize:20,fontWeight: "bold"}}} 
-            rightComponent={<Badgecon{
-                ...props
+            centerComponent={{text:this.props.title, style:{color:'lightblue',fontSize:20,fontWeight: "bold"}}} 
+            rightComponent={<this.Badgecon{
+                ...this.props
             }/>}
             backgroundColor='white'
             />

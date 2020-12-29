@@ -28,7 +28,7 @@ export default class SettingScreen extends Component{
                     emailId: data.emailId,
                     firstName: data.firstName,
                     lastName: data.lastName,
-                    phoneNumber: data.phoneNumber,
+                    phoneNumber: data.contact,
                     address: data.address,
                     docId: doc.id
                 })
@@ -50,7 +50,7 @@ export default class SettingScreen extends Component{
     render(){
         return(
 <View>
-    <MyHeader title="Settings"/>
+    <MyHeader title="Settings" navigation ={this.props.navigation}/>
     <View style={styles.formContainer}>
 
     <TextInput styles={styles.formTextInput} 

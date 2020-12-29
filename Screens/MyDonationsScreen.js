@@ -11,21 +11,43 @@ export default class MyDonationsScreen extends Component {
         super()
         this.state={
             userId: firebase.auth().currentUser.email,
+            donorName: "",
             allDonations: [],
         },
         this.requestRef=null
     }
+    getDonorDetails = (userId) => {
+      db.collection("users")
+        .where("emailId", "==", userId)
+        .get()
+        .then((snapshot) => {
+          snapshot.forEach((doc) => {
+            this.setState({
+              donorName: doc.data().firstName + " " + doc.data().lastName,
+            });
+          });
+        });
+    };
+
     getAllDonations=()=>{
     this.requestRef=db.collection('all_donations').where("donorId","==",this.state.userId)
     .onSnapshot((snapshot)=>{
-        var allDonations= snapshot.docs.map(document=>document.data())
+        var allDonations= []
+        snapshot.docs.map((doc)=>{
+         
+          var donation = doc.data()
+          
+          donation["doc_id"] = doc.id
+          allDonations.push(donation)
+        })
+
         this.setState({
             allDonations:allDonations
         })
     })
     }
     sendBook=(bookDetails)=>{
-        if(bookDetails.requestStatus==="Donor Interested"){
+        if(bookDetails.requestStatus==="Book Sent"){
             var requestStatus="Donor Interested"
             db.collection("all_donations").doc(bookDetails.doc_id).update({
                 "requestStatus": "Donor Interested"
@@ -42,7 +64,7 @@ export default class MyDonationsScreen extends Component {
     }
     sendNotification=(bookDetails, requestStatus)=>{
         var requestId=bookDetails.request_id
-        var donorId=bookDetails.donor_id
+        var donorId=bookDetails.donorId
         db.collection("all_notifications").where("request_id","==",requestId).where("donor_id", "==", donorId).get()
         .then(snapshot=>{
             snapshot.forEach((doc)=>{
@@ -62,15 +84,15 @@ message = this.state.donorName + "Has Shown Interest In Donating The Book"
     }
     keyExtractor=(item, index)=>index.toString()
     renderItem=({item,i})=>{
+      return(
             <ListItem key={i}
             title={item.book_name}
-            subtitle={"Requested By:"+item.requestedBy+"Status:"+item.requestStatus}
+            subtitle={"Requested By: "+item.requestedBy+" Status: "+item.requestStatus}
             leftElement={<Icon name="Book" type="font-awesome" color="black"/>}
             titleStyle={{color:"black",fontWeight:"bold"}}
             rightElement={
             <TouchableOpacity style={[styles.button, {
-                backgroundColor: item.requestStatus==="Book Sent"?
-                "green": "red"
+                backgroundColor: item.requestStatus==="Book Sent"? "green": "#ff5722"
             }
             ]}
             onPress={()=>{
@@ -78,21 +100,33 @@ message = this.state.donorName + "Has Shown Interest In Donating The Book"
             }}
             >
                 <Text style={{color: "coral"}}>
-                    Send The Book
+                {item.requestStatus === "Book Sent" ? "Book Sent" : "Send Book"}
                 </Text>
             </TouchableOpacity>
             }
             bottomDivider
             />
+            )
     }
+
+  componentDidMount() {
+    this.getDonorDetails(this.state.userId);
+    this.getAllDonations();
+  }
+
+  componentWillUnmount() {
+    this.requestRef();
+  }
+
 render(){
     return(
-        <View>
+        
 <View style={{flex:1}}>
-            <MyHeader title="My Donations"/>
+            <MyHeader title="My Donations" navigation={this.props.navigation}/>
             <View style={{flex:1}}>
             {this.state.allDonations.length===0?(
                 <View>
+                   <Text style={{ fontSize: 20}}>List of all book Donations</Text>
                 </View>
             ): (
                 <FlatList
@@ -103,11 +137,11 @@ render(){
             )}
             </View>
         </View>   
-        </View>
+       
     )
     
 }
-      }
+}
       const styles = StyleSheet.create({
         button:{
           width:100,

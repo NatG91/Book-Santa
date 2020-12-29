@@ -58,7 +58,7 @@ export default class Welcome extends Component {
               }}
               />
               <TextInput style={styles.formTextInput} 
-              placeholder={"Address"}
+              placeholder={"Adress"}
               multiline={true}
               onChangeText={(text)=>{
                 this.setState({
@@ -89,16 +89,16 @@ export default class Welcome extends Component {
                   confirmPassword:text
                 }) }}
          /> 
-         <View style={styles.backButton}>
+         <View styles={styles.backButton}>
            <TouchableOpacity style={styles.registerButton} onPress={()=>this.signup(this.state.emailId,this.state.Password, this.state.confirmPassword)}>
           <Text style={styles.registerButtonText}>
           Register
           </Text>
            </TouchableOpacity>
          </View>
-         <View style={styles.backButton}>
+         <View styles={styles.backButton}>
            <TouchableOpacity style={styles.cancelButton} onPress={()=>this.setState({"isModalVisible":false})}>
-          <Text style={styles.cancelButton}>
+          <Text styles={styles.cancelButton}>
           Cancel
           </Text>
            </TouchableOpacity>
@@ -162,16 +162,25 @@ return Alert.alert("Thanks for Signing Up.")
                onChangeText={(text)=>
                 {this.setState({
                   emailId:text
-                }) }}
+                })
+               }
+              }
         />
-        <TextInput style={styles.loginBox} placeholder="Password" secureTextEntry={true}onChangeText={(text)=>
-                {this.setState({
+        <TextInput 
+          style={styles.loginBox} 
+          placeholder="Password" 
+          secureTextEntry={true}
+          onChangeText={(text)=>{
+            this.setState({
                   Password:text
-                }) }}
+            }) 
+          }}
          /> 
        
-         <TouchableOpacity style ={styles.LoginButton} onPress={()=>{this.login(this.state.emailId, this.state.Password)}}>
-                <Text>Login</Text>
+         <TouchableOpacity 
+          style ={styles.LoginButton} 
+          onPress={()=>{this.login(this.state.emailId, this.state.Password)}}>
+          <Text>Login</Text>
          </TouchableOpacity>   
          <TouchableOpacity style ={styles.LoginButton} onPress={()=>this.setState({isModalVisible:true})}>
                 <Text>Sign Up</Text>
@@ -181,108 +190,109 @@ return Alert.alert("Thanks for Signing Up.")
       
    )}
   }
-  const styles = StyleSheet.create({
 
-    container:{
-      backgroundColor: 'purple',
-      flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    loginBox:{
-        fontSize:20,
-        height: 20,
-        width: 300,
-        marginTop: 10,
-        marginLeft: 20,
-        alignItems: "center",
-        justifyContent: "center",
-        alignItems: "center",
-        alignSelf: "center",
-        alignSelf: "center",
-        textAlign: "center",
-        borderBottomWidth: 1.5,
-        borderColor:"red"
-    },
-    LoginButton:{
-      fontSize: 90,
-      backgroundColor: "lightblue",
-      borderRadius: 10,
+const styles = StyleSheet.create({
+
+  container:{
+    backgroundColor: 'purple',
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  loginBox:{
+      fontSize:20,
       height: 20,
-      marginTop: 2,
-      width: 150,
+      width: 300,
+      marginTop: 10,
       marginLeft: 20,
       alignItems: "center",
       justifyContent: "center",
       alignItems: "center",
       alignSelf: "center",
       alignSelf: "center",
-      textAlign: "center"
-    },
-   
-    title:{
-      color: 'lightblue',
-      fontSize: 50,
-      marginLeft: 45,
-      paddingBottom: 30
-    },
-    backButton:{
-      backgroundColor: '#FFDE59',
-    },
-    registerButton:{
-      width:200,
-      height:40,
-      alignItems:'center',
-      justifyContent:'center',
-      borderWidth:1,
-      borderRadius:10,
-      marginTop:30
-    },
-    registerButtonText:{
-      color:'#ff5722',
-      fontSize:15,
-      fontWeight:'bold'
-    },
-    cancelButton:{
-      width:200,
-     height:30,
-     justifyContent:'center',
-     alignItems:'center',
-     marginTop:5,
-    },
-    formTextInput:{
-     width:"75%",
-     height:35,
-     alignSelf:'center',
-     borderColor:'#ffab91',
-     borderRadius:10,
-     borderWidth:1,
-     marginTop:20,
-     padding:10
-    },
-    modalTitle:{
-      justifyContent:'center',
-      alignSelf:'center',
-      fontSize:30,
-      color:'#ff5722',
-      margin:50
-    },
-    KeyboardAvoidingView:{
-     flex:1,
-     justifyContent: "center",
-     alignItems: "center"
-    },
-    modalContainer:{
-      flex:1,
-      borderRadius:20,
-      justifyContent:'center',
-      alignItems:'center',
-      backgroundColor:"#ffff",
-      marginRight:30,
-      marginLeft : 30,
-      marginTop:80,
-      marginBottom:80,
-     },
-  
-      })
+      textAlign: "center",
+      borderBottomWidth: 1.5,
+      borderColor:"red"
+  },
+  LoginButton:{
+    fontSize: 90,
+    backgroundColor: "lightblue",
+    borderRadius: 10,
+    height: 20,
+    marginTop: 2,
+    width: 150,
+    marginLeft: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    alignSelf: "center",
+    textAlign: "center"
+  },
+ 
+  title:{
+    color: 'lightblue',
+    fontSize: 50,
+    marginLeft: 45,
+    paddingBottom: 30
+  },
+  backButton:{
+    backgroundColor: '#FFDE59',
+  },
+  registerButton:{
+    width:200,
+    height:40,
+    alignItems:'center',
+    justifyContent:'center',
+    borderWidth:1,
+    borderRadius:10,
+    marginTop:30
+  },
+  registerButtonText:{
+    color:'#ff5722',
+    fontSize:15,
+    fontWeight:'bold'
+  },
+  cancelButton:{
+    width:200,
+   height:30,
+   justifyContent:'center',
+   alignItems:'center',
+   marginTop:5,
+  },
+  formTextInput:{
+   width:"75%",
+   height:35,
+   alignSelf:'center',
+   borderColor:'#ffab91',
+   borderRadius:10,
+   borderWidth:1,
+   marginTop:20,
+   padding:10
+  },
+  modalTitle:{
+    justifyContent:'center',
+    alignSelf:'center',
+    fontSize:30,
+    color:'#ff5722',
+    margin:50
+  },
+  KeyboardAvoidingView:{
+   flex:1,
+   justifyContent: "center",
+   alignItems: "center"
+  },
+  modalContainer:{
+    flex:1,
+    borderRadius:20,
+    justifyContent:'center',
+    alignItems:'center',
+    backgroundColor:"#ffff",
+    marginRight:30,
+    marginLeft : 30,
+    marginTop:80,
+    marginBottom:80,
+   },
+
+    })
   

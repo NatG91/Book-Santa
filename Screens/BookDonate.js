@@ -38,7 +38,8 @@ export default class BookDonate extends Component {
            titleStyle={{color:"black",fontWeight:"bold"}}
            rightElement={
            <TouchableOpacity style={styles.button} onPress={()=>{
-               this.props.navigation.navigate("ReceiverDetails",{"details": item})
+              this.props.navigation.navigate('ReceiverDetails',{"details": item})
+               console.log('ReceiverDetails')
            }}>
                <Text style={{color: "coral"}}>
                    Details
@@ -52,7 +53,7 @@ export default class BookDonate extends Component {
      render(){
        return(
         <View style={{flex:1}}>
-            <MyHeader title="Donate A Book"/>
+            <MyHeader title="Donate A Book" navigation ={this.props.navigation}/>
             <View style={{flex:1}}>
             {this.state.requestedBookList===0?(
                 <View style={styles.subContainer}>

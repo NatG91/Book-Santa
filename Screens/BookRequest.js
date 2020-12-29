@@ -34,7 +34,7 @@ export default class BookRequest extends Component {
    render(){
        return(
         <View style={styles.container}>
-          <MyHeader title="Request A Book"/>
+          <MyHeader title="Request A Book" navigation ={this.props.navigation}/>
         <KeyboardAvoidingView style={styles.keyboardStyle}>
             <TextInput style={styles.formTextInput} placeholder={'The Name of The Book'}
             onChangeText={(text)=>{

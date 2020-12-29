@@ -26,7 +26,7 @@ db.collection('users').where('emailId','==', this.state.receiverId).get()
   snapshot.forEach(doc=>{
     this.setState({
       receiverName: doc.data().firstName,
-      receiverContact: doc.data().phoneNumber,
+      receiverContact: doc.data().contact,
       receiverAddress: doc.data().address,
     })
 
@@ -40,29 +40,42 @@ db.collection('requested_books').where('request_id', '==',this.state.requestId).
   })
 })})
 }
-updateBookStatus=()=>{
-  db.collection('all_donations').add({
-    'book_name':this.state.bookName,
-    'request_id': this.state.requestId,
-    'requestedBy': this.state.receiverName,
-    'donorId': this.state.userId,
-    'requestStatus': "Donor Interested",
+
+getUserDetails=(userId)=>{
+  db.collection("users").where('emailId','==', userId).get()
+  .then((snapshot)=>{
+    snapshot.forEach((doc) => {
+      this.setState({
+        userName  :doc.data().firstName + " " + doc.data().lastName
+      })
+    })
   })
 }
+updateBookStatus=()=>{
+  db.collection('all_donations').add({
+    "book_name":this.state.bookName,
+    "request_id": this.state.requestId,
+    "requestedBy": this.state.receiverName,
+    "donorId": this.state.userId,
+    "requestStatus": "Donor Interested",
+  })
+}
+
 addNotification=()=>{
-  var message = this.state.userName + " Has Shown Interest In Donating The Book" 
-  db.collection('all_notifications').add({
-    'targeted_user_id': this.state.receiverId,
-    'donor_id':this.state.userId,
-    'request_id': this.state.requestId,
-    'book_name': this.state.bookName,
-    'date' : firebase.firestore.FieldValue.serverTimestamp(),
-    'notification_status':"unread",
-    "message": message
+  var message = this.state.userName + " has shown interest in donating the book"
+  db.collection("all_notifications").add({
+    "targeted_user_id"    : this.state.receiverId,
+    "donor_id"            : this.state.userId,
+    "request_id"          : this.state.requestId,
+    "book_name"           : this.state.bookName,
+    "date"                : firebase.firestore.FieldValue.serverTimestamp(),
+    "notification_status" : "unread",
+    "message"             : message
   })
 }
 componentDidMount(){
   this.getReceiverDetails()
+  this.getUserDetails(this.state.userId)
 }
    render(){
        return(
@@ -117,7 +130,7 @@ componentDidMount(){
               <TouchableOpacity style={styles.button} onPress={()=>{
                 this.updateBookStatus()
                 this.addNotification()
-                this.props.navigation.navigate('MyDonations')
+                this.props.navigation.navigate('Donations')
               }}>
                 <Text>
                   Donate Now

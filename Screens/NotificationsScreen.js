@@ -1,5 +1,7 @@
 import React,{Component} from 'react';
 import { StyleSheet, Text, View,TextInput,TouchableOpacity,Alert,KeyboardAvoidingView, FlatList} from 'react-native';
+import SwipeableFlatList from '../Components/SwipeableFlatList'
+import { ListItem, Icon } from 'react-native-elements';
 import db from '../config'
 import firebase from 'firebase/app'
 import MyHeader from '../Components/Header'
@@ -48,7 +50,7 @@ export default class NotificationsScreen extends Component {
         return(
     <View style={{flex:1}}>
                     <View style={{flex:0.1}}>
-                <MyHeader title="Notifications"/>
+                <MyHeader title="Notifications" navigation={this.props.navigation}/>
                 </View>
                 <View style={{flex:0.9}}>
                 {this.state.allNotifications.length===0?
