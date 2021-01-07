@@ -127,7 +127,9 @@ return Alert.alert("Thanks for Signing Up.")
   lastName: this.state.lastName,
   address: this.state.address,
   emailId: this.state.emailId,
-  contact: this.state.phoneNumber
+  contact: this.state.phoneNumber,
+  isBookRequestActive:false,
+  
    })
   }
       }

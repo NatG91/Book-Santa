@@ -32,7 +32,7 @@ onSwipeValueChange=swipeData=>{
       })
     }
 }
-renderItem=data=>{
+renderItem=data=>(
 
     <ListItem
     leftElement={<Icon name= "Book" type="feather" color="black"/>}
@@ -41,7 +41,7 @@ renderItem=data=>{
     titleStyle={{color:"black",fontWeight:"bold"}}
     bottomDivider
     />
-}
+)
 renderHiddenItem=()=>{
     <View syle={styles.rowBack}>
         <View style={styles.backRightButton, styles.backRightButtonRight}>
